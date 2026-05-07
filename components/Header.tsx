@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Activity, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import type { SimulationState } from '@/types/simulation';
 
 interface HeaderProps {
@@ -50,7 +51,10 @@ export default function Header({ simState }: HeaderProps) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`relative z-20 border-b transition-colors duration-700 ${
         isCritical ? 'bg-[#130606]/95 border-red-900/50' : 'bg-[#0a0d0a]/95 border-[#1a2d1a]/70'
       } backdrop-blur-md`}
@@ -72,7 +76,7 @@ export default function Header({ simState }: HeaderProps) {
           {/* ── LOGO (icon only, no text) ── */}
           <div className="relative flex-shrink-0 h-12 w-12 sm:h-14 sm:w-14">
             <Image
-              src="/alibel-icon.jpg"
+              src="/alibel-icon-light.png"
               alt="ALIBEL"
               fill
               className="object-contain rounded-lg"
@@ -178,6 +182,6 @@ export default function Header({ simState }: HeaderProps) {
       {isCritical && (
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-500 animate-pulse" />
       )}
-    </header>
+    </motion.header>
   );
 }
