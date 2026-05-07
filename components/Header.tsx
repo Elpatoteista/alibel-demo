@@ -33,14 +33,14 @@ function LiveClock() {
 }
 
 const STATUS: Record<SimulationState, { label: string; color: string; dot: string; ring?: string }> = {
-  idle:            { label: 'Sistema en espera',    color: 'text-slate-500',    dot: '#475569' },
-  cameraReady:     { label: 'Inicializando...',      color: 'text-[#00e676]',   dot: '#00e676' },
-  monitoring:      { label: 'Monitoreando',          color: 'text-[#00e676]',   dot: '#00e676',  ring: '#00e676' },
-  anomalyDetected: { label: 'Anomalía detectada',   color: 'text-amber-400',   dot: '#f59e0b',  ring: '#f59e0b' },
-  validating:      { label: 'Validando evento',     color: 'text-orange-400',  dot: '#f97316',  ring: '#f97316' },
-  criticalAlert:   { label: '⚠ ALERTA CRÍTICA',    color: 'text-red-400',     dot: '#ef4444',  ring: '#ef4444' },
-  sendingAlert:    { label: 'Enviando alerta',      color: 'text-red-400',     dot: '#ef4444',  ring: '#ef4444' },
-  delivered:       { label: 'Alerta entregada',     color: 'text-[#00e676]',   dot: '#00e676' },
+  idle: { label: 'Sistema en espera', color: 'text-slate-500', dot: '#475569' },
+  cameraReady: { label: 'Inicializando...', color: 'text-[#00e676]', dot: '#00e676' },
+  monitoring: { label: 'Monitoreando', color: 'text-[#00e676]', dot: '#00e676', ring: '#00e676' },
+  anomalyDetected: { label: 'Anomalía detectada', color: 'text-amber-400', dot: '#f59e0b', ring: '#f59e0b' },
+  validating: { label: 'Validando evento', color: 'text-orange-400', dot: '#f97316', ring: '#f97316' },
+  criticalAlert: { label: '⚠ ALERTA CRÍTICA', color: 'text-red-400', dot: '#ef4444', ring: '#ef4444' },
+  sendingAlert: { label: 'Enviando alerta', color: 'text-red-400', dot: '#ef4444', ring: '#ef4444' },
+  delivered: { label: 'Alerta entregada', color: 'text-[#00e676]', dot: '#00e676' },
 };
 
 export default function Header({ simState }: HeaderProps) {
@@ -55,9 +55,8 @@ export default function Header({ simState }: HeaderProps) {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative z-20 border-b transition-colors duration-700 ${
-        isCritical ? 'bg-[#130606]/95 border-red-900/50' : 'bg-[#0a0d0a]/95 border-[#1a2d1a]/70'
-      } backdrop-blur-md`}
+      className={`relative z-20 border-b transition-colors duration-700 ${isCritical ? 'bg-[#130606]/95 border-red-900/50' : 'bg-[#0a0d0a]/95 border-[#1a2d1a]/70'
+        } backdrop-blur-md`}
     >
       {/* Top green accent line */}
       <div
@@ -74,7 +73,7 @@ export default function Header({ simState }: HeaderProps) {
         <div className="flex items-center gap-6 h-[72px] sm:h-[84px]">
 
           {/* ── LOGO (icon only, no text) ── */}
-          <div className="relative flex-shrink-0 h-12 w-12 sm:h-14 sm:w-14">
+          <div className="relative flex-shrink-0 h-20 w-20 sm:h-14 sm:w-14">
             <Image
               src="/alibel-icon-light.png"
               alt="ALIBEL"
@@ -157,8 +156,8 @@ export default function Header({ simState }: HeaderProps) {
                 background: isCritical
                   ? 'rgba(127,0,0,0.15)'
                   : isMonitoring
-                  ? 'rgba(0,230,118,0.08)'
-                  : 'rgba(13,17,13,0.8)',
+                    ? 'rgba(0,230,118,0.08)'
+                    : 'rgba(13,17,13,0.8)',
                 borderColor: isCritical ? '#7f0000' : isMonitoring ? 'rgba(0,230,118,0.3)' : '#1f2d1f',
               }}
             >
