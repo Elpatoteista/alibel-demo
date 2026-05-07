@@ -1,72 +1,120 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  /* ── Fonts ── */
+  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-body:    var(--font-body), system-ui, sans-serif;
+  --font-sans:    var(--font-display), system-ui, sans-serif;
 
-  /* ── ALIBEL Brand Colors ── */
-  /* Primary green from ECG/heartbeat in logo */
-  --color-alibel-green: #00e676;
+  /* ── ALIBEL Brand ── */
+  --color-alibel-green:      #00e676;
   --color-alibel-green-dark: #00c853;
-  --color-alibel-green-glow: rgba(0, 230, 118, 0.2);
-
-  /* Dark charcoal from shield/text in logo */
-  --color-alibel-carbon: #1a1a1a;
-  --color-alibel-carbon-2: #222222;
-
-  /* Background */
-  --color-alibel-bg: #0a0d0a;
-  --color-alibel-bg-2: #0d110d;
-  --color-alibel-surface: #111811;
-  --color-alibel-surface-2: #161d16;
+  --color-alibel-glow:       rgba(0, 230, 118, 0.25);
+  --color-alibel-bg:         #0a0d0a;
+  --color-alibel-surface:    #0d110d;
+  --color-alibel-border:     #1f2d1f;
 }
 
-/* Scan line animation for camera overlay */
+/* ── Keyframes ── */
+
 @keyframes scanLine {
-  0%   { top: 0%; }
-  100% { top: 100%; }
+  0%   { top: 0%; opacity: 0.8; }
+  50%  { opacity: 1; }
+  100% { top: 100%; opacity: 0.8; }
 }
 
-/* Smooth entrance */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Green pulse glow for ALIBEL brand */
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 @keyframes greenGlow {
-  0%, 100% { box-shadow: 0 0 4px 0 rgba(0, 230, 118, 0.3); }
-  50%       { box-shadow: 0 0 12px 2px rgba(0, 230, 118, 0.6); }
+  0%, 100% { box-shadow: 0 0 6px 1px rgba(0, 230, 118, 0.2); }
+  50%       { box-shadow: 0 0 18px 4px rgba(0, 230, 118, 0.5); }
 }
 
-.animate-in { animation: fadeInUp 0.5s ease-out forwards; }
-
-.alibel-glow { animation: greenGlow 2s ease-in-out infinite; }
-
-/* Custom scrollbar */
-::-webkit-scrollbar        { width: 6px; }
-::-webkit-scrollbar-track  { background: #0a0d0a; }
-::-webkit-scrollbar-thumb  { background: #1f2d1f; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2d4a2d; }
-
-/* Selection */
-::selection { background: rgba(0, 230, 118, 0.2); color: #b9ffdb; }
-
-/* Smooth color transitions */
-* {
-  transition-property: color, background-color, border-color, opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(0, 230, 118, 0.4); }
+  50%       { border-color: rgba(0, 230, 118, 0.9); }
 }
 
-/* Don't override animation-specific elements */
-.animate-ping, .animate-spin, .animate-bounce, .animate-pulse { transition: none; }
+@keyframes criticalPulse {
+  0%, 100% { border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 8px rgba(239,68,68,0.3); }
+  50%       { border-color: rgba(239, 68, 68, 1);   box-shadow: 0 0 24px rgba(239,68,68,0.6); }
+}
 
-/* slide-in */
 @keyframes slideInFromTop {
-  from { transform: translateY(-16px); opacity: 0; }
+  from { transform: translateY(-20px); opacity: 0; }
   to   { transform: translateY(0);     opacity: 1; }
 }
-.slide-in-from-top-4 { animation: slideInFromTop 0.4s ease-out forwards; }
 
-/* Scan line */
-.scan-line { animation: scanLine 2s linear infinite; }
+@keyframes typewriterBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes dataFlicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%, 99%      { opacity: 0.4; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Utility classes ── */
+.animate-in            { animation: fadeInUp 0.5s ease-out forwards; }
+.animate-in-scale      { animation: fadeInScale 0.4s ease-out forwards; }
+.animate-green-glow    { animation: greenGlow 2.5s ease-in-out infinite; }
+.animate-border-pulse  { animation: borderPulse 2s ease-in-out infinite; }
+.animate-critical      { animation: criticalPulse 1.2s ease-in-out infinite; }
+.animate-radar         { animation: radarSpin 3s linear infinite; }
+.animate-data-flicker  { animation: dataFlicker 4s ease-in-out infinite; }
+.scan-line             { animation: scanLine 2.2s linear infinite; }
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 230, 118, 0.0) 0%,
+    rgba(0, 230, 118, 0.12) 50%,
+    rgba(0, 230, 118, 0.0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── Typography scale ── */
+.text-display-xl { font-size: 3rem;    line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.text-display-lg { font-size: 2rem;    line-height: 1.1; font-weight: 700; letter-spacing: -0.01em; }
+.text-display    { font-size: 1.5rem;  line-height: 1.2; font-weight: 700; }
+.text-label      { font-size: 0.65rem; letter-spacing: 0.12em; font-weight: 600; text-transform: uppercase; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: #070a07; }
+::-webkit-scrollbar-thumb  { background: #1a2d1a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2d4a2d; }
+
+::selection { background: rgba(0, 230, 118, 0.2); color: #b9ffdb; }
+
+/* ── Global transitions (don't override animations) ── */
+*, *::before, *::after {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+.animate-ping, .animate-spin, .animate-bounce, .animate-pulse,
+.animate-green-glow, .animate-border-pulse, .animate-critical,
+.animate-radar, .scan-line, .shimmer { transition: none !important; }
