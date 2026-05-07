@@ -73,7 +73,7 @@ export default function Header({ simState }: HeaderProps) {
         <div className="flex items-center gap-6 h-[72px] sm:h-[84px]">
 
           {/* ── LOGO (icon only, no text) ── */}
-          <div className="relative flex-shrink-0 h-20 w-20 sm:h-14 sm:w-14">
+          <div className="relative flex-shrink-0 h-20 w-20 sm:h-24 sm:w-24">
             <Image
               src="/alibel-icon-light.png"
               alt="ALIBEL"
